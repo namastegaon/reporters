@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Namaste Gaon</title>
+  
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+  <script src="https://notesbundlelite.firebaseapp.com/js/fingerprint.js"></script>
+<style type="text/css">
+  
+  @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+
+body {
+  background:#f6f8fa;
+  margin:0;
+font-family: 'Nunito Sans', sans-serif;
+
+color: #6a1b9a;
+
+
+  
+}
+.aboutus{
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+ background-color: #222;
+  padding:8%;
+  color:#fff;
+  border-radius:8px;
+  max-width: 100vw;
+  
+  margin-top:32px;
+  
+}
+footer{
+  padding:4%; 
+  
+}
+.footer-icon{
+  margin:10px;
+}
+
+input{
+  padding:14px;
+  width:320px;
+  max-width: 90%;
+  text-align:center;
+  font-size:18px;
+  margin:6px;
+  border-radius:6px;
+  color:#111;
+  border:1px solid #6a1b9a;
+  background:#fff;
+}
+.btn{
+  background-color: #6a1b9a; /* Green */
+  border: none;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+
+}
+</style>
+  
+</head>
+
+<body>
+<header>
+    <center><h1>नमस्ते गांव </h1><center>
+      <div class="bookingForm">
+  <center>
+    <h4>कृपया निम्न को सही से भरे </h4>
+    <input type="text" id="name" placeholder="पूरा नाम " required></input><br/>
+    <input type="email" id="email" placeholder="ईमेल " required></input><br/>
+    <input type="text" id="address" placeholder="पूरा पता" required>
+      <br/>
+      </input>
+    <input type="number" id="phone" placeholder="मोबाइल नंबर" required></input>
+  <br/><br/>
+    <button class="btn" onclick="submit()">आगे बढे> </button>
+</center>
+  <div>
+    <div class="aboutus">
+      किसी भी समस्या के लिए हमे कॉल करे : +91 8562046600<br/><br/>
+    
+    </div>
+<script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDL7_V_xDIHDHifaMrubMzLZdrJiNWoVWQ",
+    authDomain: "namastegaon-18.firebaseapp.com",
+    databaseURL: "https://namastegaon-18.firebaseio.com",
+    projectId: "namastegaon-18",
+    storageBucket: "namastegaon-18.appspot.com",
+    messagingSenderId: "984172868449"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript">
+  
+function submit() {
+  var fingerprint = new Fingerprint().get();
+
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var address = document.getElementById("address").value;
+    if (name!=""&&email!=""&&phone!=""&&address!="") {
+      //var txt = "Hello "+name+"\n"+"Your appointment for Dr. "+doctorname+ " is in queue. We'll shotly conform you the date and time.\nYour details are as follows.\n\nName: "+name+"\nEmail: "+email+"\nphone number: "+phone+"\nAddress: "+address;
+      //alert(txt);
+
+      var newData={
+      auth_fingerprint: fingerprint,
+      name: name,
+      phone: phone,
+      address : address,
+      email: email
+      
+   };
+
+      firebase.database().ref("reporters/"+phone).set(newData,finished);
+      function finished(error) {
+  if (error) {
+    alert("error! हमे कॉल करे : +91 8562046600");
+  } else {
+    alert('रजिस्ट्रेशन हो गया है\nधन्यवाद ');
+    window.location.href="https://www.namastegaon.com"
+  }
+}
+}
+    
+    else{
+      alert("कृपया सही से भरे !");
+
+    }
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
